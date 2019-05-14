@@ -3,6 +3,7 @@ package token
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -30,7 +31,7 @@ func loginToSM() {
 	defer responseIAM.Body.Close()
 
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 
 	smRootURL := MainToken.GetSMRootURL()
@@ -44,23 +45,23 @@ func loginToSM() {
 	client := &http.Client{}
 	req, err := http.NewRequest("POST", smRootURL + exchangeArgs, responseIAM.Body)
 	req.Header.Add("Content-Type", "application/json")
-
 	response, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 	defer response.Body.Close()
 	body, err := ioutil.ReadAll(response.Body)
 
-	err = json.Unmarshal([]byte(body), &MainToken)
-	if err != nil {
-		fmt.Println(err)
+	var s map[string]interface{}
+	if err := json.Unmarshal(body, &s); err != nil {
+		log.Fatal(err)
 	}
 
-	fmt.Println("MAIN TOKEN ", MainToken)
+	MainToken.bearerToken = s["onboarding_token"].(string)
 }
 
 func checkSMToken() error {
+	// TODO - implement check and retry
 	return nil
 }
 
@@ -75,7 +76,7 @@ func loginIntoCloudIAM() (*http.Response, error) {
 	client := &http.Client{}
 	response, err := client.PostForm(cloudIAMUrl, values)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 	return response, err
 }

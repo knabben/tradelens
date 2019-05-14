@@ -1,13 +1,24 @@
 package request
 
-func Put(url string) {
+import (
+	"fmt"
+	"net/http"
+)
 
-}
-
-func Post(url, body string) {
-
-}
-
-func Get(url string) {
-
+var (
+	baseUrl string = "https://platform-sandbox.tradelens.com"
+)
+// Get makes a request in the platform
+func Get(url string, token string) *http.Response {
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", baseUrl + url, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+	req.Header.Add("Authorization", "Bearer " + token)
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return resp
 }

@@ -1,18 +1,17 @@
 package token
 
 type TokenData struct {
-	apiKey string
-	cloudIAMURL string
-	smRootUrl string
+	apiKey         string
+	cloudIAMURL    string
+	smRootUrl      string
 	organizationID string
-	solutionID string
-	bearerToken string `json:"onboarding_token"`
+	solutionID     string
+	bearerToken    string
 }
 
 var (
-	MainToken TokenData = TokenData{}
+	MainToken   TokenData = TokenData{}
 	CloudBearer map[string]interface{}
-
 )
 
 func (m *TokenData) SetApiKey(apiKey string) {
@@ -53,4 +52,8 @@ func (m *TokenData) SetCloudIAMUrl(cloudIAM string) {
 
 func (m *TokenData) GetCloudIAMUrl() string {
 	return m.cloudIAMURL
+}
+
+func (m *TokenData) GetBearerToken() string {
+	return m.bearerToken
 }

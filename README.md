@@ -1,7 +1,6 @@
 # Tradelens Integrator
 
-Code for integration on Tradelens platform, 
-provides fetch and post code and a listener for events consuming.
+TradeLens integration Golang library, provides a consigment example usage
 
 ## Configuration
 
@@ -21,18 +20,8 @@ POST, GET and PATCH API for:
 
 https://platform-sandbox.tradelens.com/documentation/swagger/
 
-```
-go run main.go fetch
-```
-
-## Listening for Events
-
-Events subscription listening and Redis storage
-
-https://docs.tradelens.com/how_to/setting_up_subscriptions/
+Usage example for the API can be found at:
 
 ```
-go run main.go listen
+examples/main.go
 ```
-
-This endpoint offer a proxy for Redis consuming and third party integrations
