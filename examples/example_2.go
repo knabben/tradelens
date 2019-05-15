@@ -33,7 +33,7 @@ func init() {
 	}
 }
 
-func main() {
+func _main() {
 	token.MainToken.SetApiKey(viper.GetString("apiKey"))
 	token.MainToken.SetSMRootURL(viper.GetString("smRootUrl"))
 	token.MainToken.SetOrganizationID(viper.GetString("organizationId"))
